@@ -1,2 +1,23 @@
-.next
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
 node_modules
+
+# testing
+
+# next.js
+.next/
+
+# misc
+
+
+# debug
+
+
+# local env files
+.env
+
+# turbo
+
+
+# vs-code
