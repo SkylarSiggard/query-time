@@ -2,5 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/pokemon": "pages/pokemon.js"
+  "/api/form": "pages/api/form.js",
+  "/pokemon": "pages/pokemon.js",
+  "/": "pages/index.js"
 }
