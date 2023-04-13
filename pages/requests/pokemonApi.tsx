@@ -1,3 +1,4 @@
+import createError from 'http-errors';
 
 export const getPokemon = async (pokemonName: string) => {
     const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`, { method: "GET" });
@@ -18,8 +19,9 @@ export const getPokemon = async (pokemonName: string) => {
         }
     } else {
         const errorMessage = await res.text();
-        return Promise.reject(new HttpError(errorMessage, res.status));
+        return Promise.reject(createError(res.status, errorMessage));
     }
 };
 
 export default getPokemon;
+
