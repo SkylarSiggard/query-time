@@ -1,14 +1,8 @@
 
-
-export const getSomething = async () => {
-
-    // do fetch here
-    const body = req.body
-    console.log('body: ', body)
-    const res = await fetch("https://pokeapi.co/api/v2/pokemon/", { method: "GET" });
+export const getPokemon = async (pokemonName: string) => {
+    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`, { method: "GET" });
 
     if (res.status === 401) {
-        // call logout session expired
         return;
     }
     if (res.status === 400) {
@@ -27,3 +21,5 @@ export const getSomething = async () => {
         return Promise.reject(new HttpError(errorMessage, res.status));
     }
 };
+
+export default getPokemon;
