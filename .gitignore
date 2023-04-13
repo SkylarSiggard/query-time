@@ -6,7 +6,7 @@ node_modules
 # testing
 
 # next.js
-.next/
+.next
 
 # misc
 
