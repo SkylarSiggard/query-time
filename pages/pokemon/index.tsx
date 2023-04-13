@@ -11,6 +11,11 @@ export default function PokemonPage() {
                 <li>
                     <Link href="/">Home</Link>
                 </li>
+                <form action="/[id].tsx" method="post"> 
+                    <label htmlFor="pokemon">Pokemon:</label>
+                    <input type="text" id="pokemon" name="pokemon" />
+                    <button type="submit">Submit</button>
+                </form>
             </div>
         </>
     );
