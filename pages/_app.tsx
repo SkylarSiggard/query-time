@@ -10,8 +10,8 @@ export default function MyApp({ Component, pageProps }) {
     const [queryClient] = React.useState(() => new QueryClient({
         defaultOptions: {
             queries: {
-            retry: 4,
-            staleTime: 5000
+            retry: 1,
+            staleTime: 500
             }
         }
     }))

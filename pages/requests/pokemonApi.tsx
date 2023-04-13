@@ -17,6 +17,8 @@ export const getPokemon = async (pokemonName: string) => {
         } catch (e) {
             return;
         }
+    } else if (res.status === 404) {
+        throw new Error(`Pokemon not found with the name ${pokemonName}`);
     } else {
         const errorMessage = await res.text();
         return Promise.reject(createError(res.status, errorMessage));
@@ -24,4 +26,5 @@ export const getPokemon = async (pokemonName: string) => {
 };
 
 export default getPokemon;
+
 

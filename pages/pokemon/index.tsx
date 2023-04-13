@@ -1,14 +1,15 @@
 import React from "react";
 import Link from 'next/link'
-import getPokemon from './requests/pokemonApi'
+import { useRouter } from 'next/router';
 
 export default function PokemonPage() {
+    const router = useRouter();
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
         const pokemonName = formData.get('pokemon').toString();
-        const pokemonData = await getPokemon(pokemonName);
-        console.log(pokemonData);
+        router.push(`/pokemon/${pokemonName}`);
     };
 
     return (
@@ -24,3 +25,5 @@ export default function PokemonPage() {
         </>
     )
 }
+
+
