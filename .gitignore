@@ -10,14 +10,11 @@ node_modules
 
 # misc
 
-
 # debug
-
 
 # local env files
 .env
 
 # turbo
-
 
 # vs-code
