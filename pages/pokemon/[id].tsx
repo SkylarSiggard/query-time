@@ -1,20 +1,27 @@
 
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import axios from "axios"
 
-export default function PokemonPage() {
+export const getSomething = async () => {
 
-    const [searchValue, setSearchValue] = React.useState("");
+    // do fetch here
+    const res = await fetch("https://pokeapi.co/api/v2/pokemon/", { method: "GET" });
 
-    return (
-        <div>
-            <h1>Search Your Pokemon</h1>
-            <input
-                type="text"
-                onChange={({ target: { value } }) => setSearchValue(value)}
-                value={searchValue}
-            />
-        </div>
-    );
-}
+    if (res.status === 401) {
+        // call logout session expired
+        return;
+    }
+    if (res.status === 400) {
+        const error = await res.text();
+        const message = JSON.parse(error);
+        throw message;
+    }
+    if (res.ok) {
+        try {
+            return await res.json();
+        } catch (e) {
+            return;
+        }
+    } else {
+        const errorMessage = await res.text();
+        return Promise.reject(new HttpError(errorMessage, res.status));
+    }
+};

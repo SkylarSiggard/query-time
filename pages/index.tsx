@@ -1,13 +1,16 @@
-
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import axios from "axios"
+import Link from 'next/link'
 
-export default function IndexPage() {
+export default function HomePage() {
 
     return (
-        <div>
-
-        </div>
+        <>
+            <div>
+                <h1>HomePage</h1>
+                <li>
+                    <Link href="/pokemon">Pokemon</Link>
+                </li>
+            </div>
+        </>
     );
 }
