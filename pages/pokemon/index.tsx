@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 export default function PokemonPage() {
     const router = useRouter();
 
+    //! Sends Input to [id].tsx 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
