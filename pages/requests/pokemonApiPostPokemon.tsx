@@ -27,3 +27,4 @@ export const changeNickname = async (pokemonNickname: string) => {
 };
 
 export default changeNickname;
+
