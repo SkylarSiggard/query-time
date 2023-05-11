@@ -22,6 +22,11 @@ export const api = async (req: Pokemon) => {
     const message = JSON.parse(error);
     throw message;
   }
+  if (res.status === 403) {
+    const error = await res.text();
+    const message = JSON.parse(error);
+    throw message;
+  }
   if (res.status === 404) {
     const error = await res.text();
     const message = JSON.parse(error);
