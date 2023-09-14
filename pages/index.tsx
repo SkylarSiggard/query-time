@@ -10,6 +10,9 @@ export default function HomePage() {
                 <li>
                     <Link href="/pokemon">Pokemon</Link>
                 </li>
+                <li>
+                    <Link href="/form">Form</Link>
+                </li>
             </div>
         </>
     );
