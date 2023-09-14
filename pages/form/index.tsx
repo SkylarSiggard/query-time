@@ -1,20 +1,21 @@
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { getPokemonByName } from "../requests/get";
 import { postNickname } from "../requests/post";
 import { deleteNickname } from "../requests/delete";
 
 export default function App() {
+  const [isAlwaysAvailable, setIsAlwaysAvailable] = useState(false);
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const onSubmit = (data) => console.log(data);
 
-  enum discountType {
-    dollar = "$",
-    percentage = "%",
-  }
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -33,9 +34,10 @@ export default function App() {
           })}
           aria-label="Promo Code"
           placeholder="penguin22"
-          // error={errors['Promo Code']?.message}
         />
-        <p>{errors["Promo Code"]?.message}</p>
+        <p>
+          <>{errors["Promo Code"]?.message}</>
+        </p>
       </div>
 
       <div>
@@ -44,19 +46,30 @@ export default function App() {
 
       <div>
         <select {...register("Discount Type")}>
-          <option value="dollar">$</option>
-          <option value="percentage">%</option>
+          <option value="$">$</option>
+          <option value="%">%</option>
         </select>
         <input
           {...register("Discount", {
             required: "Discount cant be empty",
             min: {
-              value: .01,
+              value: 0.01,
               message: "Must be greater than 0",
             },
           })}
         />
-        <p>{errors["Discount"]?.message}</p>
+        <p>
+          <>{errors["Discount"]?.message}</>
+        </p>
+      </div>
+
+
+      <div onClick={() => setIsAlwaysAvailable(!isAlwaysAvailable)}>
+        {!isAlwaysAvailable ? (
+          <div>Check Mark - False</div>
+        ) : (
+          <div>Check Mark - True</div>
+        )}
       </div>
 
       <input type="submit" />
