@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
 import {
   getDefaultStartDate,
@@ -8,6 +8,7 @@ import {
 import { getPokemonByName } from "../requests/get";
 import { postNickname } from "../requests/post";
 import { deleteNickname } from "../requests/delete";
+import { type } from "os";
 
 export default function App() {
   const [isAlwaysAvailable, setIsAlwaysAvailable] = useState(false);
@@ -17,7 +18,7 @@ export default function App() {
   const [endDate, setEndDate] = useState(getDefaultEndDate());
   const [endTime, setEndTime] = useState(getDefaultEndDate());
 
-  interface PromoCode {
+  type PromoCode = {
     promoCode: string;
     description: string;
     enforceLimit: boolean;
@@ -28,23 +29,25 @@ export default function App() {
     applyToAll: boolean;
     startDate: string;
     endDate: string;
-  }
-  
+  };
 
   const {
     register,
     formState: { errors },
     handleSubmit,
+    control,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Submitted Form", data);
+  const validateDates = (data: string, start?, end?) => {
+    const date = new Date(data);
+    const isValid = date > new Date();
+    return isValid || "Date must be in the future";
   };
 
-  console.log("startingDate", startDate);
-  console.log("startingTime", startTime);
-  console.log("endingDate", endDate);
-  console.log("endingTime", endTime);
+  const onSubmit = (data: PromoCode) => {
+    const promoCode = { ...data };
+    console.log("promoCode", promoCode);
+  };
 
   return (
     <form
@@ -119,7 +122,7 @@ export default function App() {
         <>
           <p>Unlimited usage</p>
           <input
-          {...register("enforceLimit", { required: false })}
+            {...register("enforceLimit", { required: false })}
             onClick={() => setIsAmountLimit(!isAmountLimit)}
             type="checkbox"
           />
@@ -128,7 +131,7 @@ export default function App() {
         <>
           <p>Unlimited usage</p>
           <input
-          {...register("enforceLimit", { required: false })}
+            {...register("enforceLimit", { required: false })}
             onClick={() => setIsAmountLimit(!isAmountLimit)}
             type="checkbox"
           />
@@ -158,8 +161,8 @@ export default function App() {
       {/* // ********************** What Pass Type ******************************** */}
       <div>
         <select {...register("applyToAll")}>
-          <option value="true" >All Passes</option>
-          <option value="false" >Other Passes</option>
+          <option value="true">All Passes</option>
+          <option value="false">Other Passes</option>
         </select>
         <p>
           <>{errors["applyToAll"]?.message}</>
@@ -184,28 +187,22 @@ export default function App() {
             />
             <div>
               {/* // ********************** Available Between ******************************** */}
-              <input
-                {...register("Start Date", {
-                  required: "Start Date can't be empty",
-                  min: {
-                    value: 1,
-                    message: "Starting date must be sooner than current date",
-                  },
-                })}
-                type="date"
+              <Controller
+                name="Start Date"
+                control={control}
+                defaultValue=""
+                rules={{ validate: validateDates }}
+                render={({ field }) => <input {...field} type="date" />}
               />
               <p>
-                <>{errors["Ending Date"]?.message}</>
+                <>{errors["Start Date"]?.message}</>
               </p>
-              <input
-                {...register("End Date", {
-                  required: "Start Date can't be empty",
-                  max: {
-                    value: 10000,
-                    message: "Ending date must be later than event date",
-                  },
-                })}
-                type="date"
+              <Controller
+                name="End Date"
+                control={control}
+                defaultValue=""
+                rules={{ validate: validateDates }}
+                render={({ field }) => <input {...field} type="date" />}
               />
               <p>
                 <>{errors["End Date"]?.message}</>
