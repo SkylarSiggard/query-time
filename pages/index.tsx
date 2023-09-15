@@ -1,6 +1,7 @@
 import React from "react";
 import Link from 'next/link'
 
+// yarn run dev
 export default function HomePage() {
 
     return (
