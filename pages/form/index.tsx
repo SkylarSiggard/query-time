@@ -20,6 +20,7 @@ export default function App() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
+{/* // ******************** Promo Code ********************************** */}
         <input
           {...register("Promo Code", {
             required: "Promo Code can't be empty",
@@ -39,11 +40,11 @@ export default function App() {
           <>{errors["Promo Code"]?.message}</>
         </p>
       </div>
-
+{/* // ********************** Description ******************************** */}
       <div>
         <input {...register("Description", { required: false })} />
       </div>
-
+{/* // ********************** Discount Type ******************************** */}
       <div>
         <select {...register("Discount Type")}>
           <option value="$">$</option>
@@ -62,16 +63,45 @@ export default function App() {
           <>{errors["Discount"]?.message}</>
         </p>
       </div>
-
-
-      <div onClick={() => setIsAlwaysAvailable(!isAlwaysAvailable)}>
+{/* // ********************** What Pass Type ******************************** */}
+      <div>
+        <select {...register("Pass Type")}>
+          <option value="All Passes">All Passes</option>
+        </select>
+        <p>
+          <>{errors["Pass Type"]?.message}</>
+        </p>
+      </div>
+{/* // ********************** Promo When Available ******************************** */}
+      <div>
         {!isAlwaysAvailable ? (
-          <div>Check Mark - False</div>
+          <div onClick={() => setIsAlwaysAvailable(!isAlwaysAvailable)}>Check Mark - False</div>
         ) : (
-          <div>Check Mark - True</div>
+          <>
+            <div onClick={() => setIsAlwaysAvailable(!isAlwaysAvailable)}>Check Mark - True</div>
+            <div>
+{/* // ********************** Available Between ******************************** */}
+              <input
+                {...register("Start Date", {
+                  required: "Start Date can't be empty",
+                })}
+                type="date"
+              />
+              <p>
+                <>{errors["Start Date"]?.message}</>
+              </p>
+{/* // ********************** Start and End Time ******************************** */}
+              <input
+                {...register("Start Time", {
+                  required: "Start Time can't be empty",
+                })}
+                type="time"
+              />
+            </div>
+          </>
         )}
       </div>
-
+{/* // ********************** Submit, Cancel, & Delete ******************************** */}
       <input type="submit" />
     </form>
   );
