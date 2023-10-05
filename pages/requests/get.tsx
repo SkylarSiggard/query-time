@@ -1,13 +1,14 @@
 import api from "./api";
 
-export const getPokemonByName = async (pokemon: string) => {
+export const getPokemon = async (pokemon?: string) => {
   const pokemonResponse = await api({
-    name: pokemon,
+    name: pokemon || "",
     method: "GET",
     path: "https://pokeapi.co/api/v2/pokemon/",
   });
 
   try {
+    /// This is a fake endpoint that doesn't exist
     const nicknameResponse = await api({
       name: `${pokemon}/nickname`,
       method: "GET",

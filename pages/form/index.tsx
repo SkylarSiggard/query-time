@@ -5,10 +5,9 @@ import {
   getDefaultEndDate,
   isEndBeforeStart,
 } from "./utils/dates";
-import { getPokemonByName } from "../requests/get";
+import { getPokemon } from "../requests/get";
 import { postNickname } from "../requests/post";
 import { deleteNickname } from "../requests/delete";
-import { type } from "os";
 
 export default function App() {
   const [isAlwaysAvailable, setIsAlwaysAvailable] = useState(false);
@@ -36,6 +35,7 @@ export default function App() {
     formState: { errors },
     handleSubmit,
     control,
+    getValues
   } = useForm();
 
   const validateDates = (data: string, start?, end?) => {
@@ -62,13 +62,23 @@ export default function App() {
           {...register("promoCode", {
             required: "Promo Code can't be empty",
             minLength: {
-              value: 3,
-              message: "Must be at least 3 characters",
+              value: 1,
+              message: "Must be at least 1 characters",
             },
             maxLength: {
               value: 35,
               message: "Must be less than 35 characters",
             },
+            validate: async (value) => {
+              const response = await getPokemon();
+              for (const pokemon of response.results) {
+                if (pokemon.name === value) {
+                  return true;
+                } else {
+                  return "Pokemon not found";
+                }
+              }
+            }
           })}
           aria-label="promoCode"
           placeholder="penguin22"

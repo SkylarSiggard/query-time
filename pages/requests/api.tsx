@@ -18,16 +18,19 @@ export const api = async (req: Pokemon) => {
     return;
   }
   if (res.status === 400) {
+    console.log("400 error", req);
     const error = await res.text();
     const message = JSON.parse(error);
     throw message;
   }
   if (res.status === 403) {
+    console.log("403 error", req);
     const error = await res.text();
     const message = JSON.parse(error);
     throw message;
   }
   if (res.status === 404) {
+    console.log("401 error", req);
     const error = await res.text();
     const message = JSON.parse(error);
     throw message;
